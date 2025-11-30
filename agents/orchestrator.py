@@ -2,6 +2,7 @@
 
 import os
 import google.generativeai as genai
+from dotenv import load_dotenv
 from .dependency_analyzer import DependencyAnalyzerAgent
 from .documentation_manager import DocumentationAgent
 from .qa_manager import QualityAssuranceAgent
@@ -9,13 +10,15 @@ from memory.storage import Memory
 
 class ProjectOrchestratorAgent:
     def __init__(self, memory_system: Memory):
+        load_dotenv() # Lädt Variablen aus einer .env-Datei
+        
         self.memory = memory_system
         self.dependency_agent = DependencyAnalyzerAgent(memory_system)
         self.documentation_agent = DocumentationAgent(memory_system)
         self.qa_agent = QualityAssuranceAgent(memory_system)
         
         # Gemini API-Initialisierung
-        # HINWEIS: Der GEMINI_API_KEY muss als Umgebungsvariable gesetzt sein.
+        # HINWEIS: Der GEMINI_API_KEY muss als Umgebungsvariable oder in .env gesetzt sein.
         try:
             api_key = os.environ.get("GEMINI_API_KEY")
             if not api_key:
