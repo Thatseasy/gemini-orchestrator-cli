@@ -1,0 +1,8 @@
+{
+    "language_rules": {
+        "rust": {
+            "manifest": "Cargo.toml",
+            "pattern": "extern crate (\\w+);"
+        }
+    }
+}
